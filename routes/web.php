@@ -31,6 +31,12 @@ Route::post('/home/login_do' , 'Home\LoginController@login_do');
 Route::get('/home/index' , 'home\IndexController@index');
 Route::get('/home/welcome' , 'Home\IndexController@welcome');
 
+/* 后台权限管理 */
+Route::get('/home/admin-rule' , 'Home\RuleController@list');
+Route::get('/home/rule-add' , 'Home\RuleController@add');
+Route::post('/home/rule-add-do' , 'Home\RuleController@add_do');
+
+
 /* 后台类别管理 */
 Route::get('/typeadd' , 'Home\TypeController@typeadd');
 Route::post('/typeadd_do' , 'Home\TypeController@typeadd_do');
