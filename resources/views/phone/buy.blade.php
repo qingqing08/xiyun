@@ -97,11 +97,26 @@
 
 <footer class="buy-footer fixed-footer">
     <p>
+        @csrf
         <small>总金额</small>
         <b>￥{{ $info['price'] }}</b>
     </p>
 
-    <a href="alipay/go_pay?price={{ $info['price'] }}&order_id={{ $info['order_id'] }}"><input type="button" value="去付款"/></a>
+    <div>
+        <input type="radio" value="1" name="pay_type" onclick="toggle(1)"/>微信
+
+        <input type="radio" value="2" name="pay_type" onclick="toggle(2)"/>支付宝
+    </div>
+
+    <div id="jiesuan">
+    {{--<a href="alipay/go_pay?price={{ $info['price'] }}&order_id={{ $info['order_id'] }}"><input type="button" value="去付款"/></a>--}}
+    <a href="javascript:;"><input type="button" onclick="gopay()" value="去付款"></a>
+    </div>
+
+    <div style="position: relative; width: 200px; height: 200px; display: none;" id="qrdiv">
+        <img id="qr" src="" width="200" height="200" >
+        <div id="message" style="position: absolute; top: 80px; left: 60px; background-color: #6c757d;"></div>
+    </div>
 </footer>
 
 <script type="text/javascript">
@@ -112,6 +127,54 @@
             $(".to-now .tonow label").addClass("ton")
         }
     })
+
+    function toggle(type){
+        if (type == 1){
+            {{--$("#jiesuan").html("<a href='http://weixin.pengqq.xyz/payscan/sign.php?pid={{ $info['order_id'] }}_1395184317'><input type='button' value='去付款' /></a>");--}}
+            var new_url = "http://weixin.pengqq.xyz/payscan/sign.php?pid={{ $info['order_id'] }}_1395184317";
+            document.getElementById('qr').src = new_url;
+            $("#jiesuan").html("<a href='javascript:;'><input type='button' value='扫码付款' /></a>");
+            $("#qrdiv").css('display' , 'block');
+            status('{{ $info['order_id'] }}');
+        } else {
+            $("#jiesuan").html("<a href='alipay/go_pay?price={{ $info['price'] }}'&order_id={{ $info['order_id'] }}><input type='button' value='去付款' /></a>");
+            document.getElementById('qr').src = '';
+            $("#qrdiv").css('display' , 'none');
+        }
+    }
+
+    function status(order_id) {
+        // alert(order_id);
+        var order_id = order_id;
+        token = $("input[name=_token]").val();
+        $.ajax({
+            url:"order_status",
+            type:"post",
+            data:{
+                _token:token,
+                order_id:order_id,
+            },
+            async: false,
+            cache: false,
+            success: function (data) {
+                if (data.code == 1) {
+                    $('#message').html("<img width='20' height='20' src='./img/duihao.png' /><span style='font-size: 20px;color: red;'>扫码成功</span>");
+                    setTimeout("status('"+data.msg+"')",2000);
+                } else if(data.code == 3){
+                    $('#message').html("<img width='20' height='20' src='./img/duihao.png' /><span style='font-size: 20px;color: red;'>支付成功</span>");
+                    window.location.href="http://www.pengqq.xyz/order";
+                } else {
+                    $('#message').html();
+                    setTimeout("status('"+data.msg+"')",2000);
+                }
+            }
+        })
+        // alert(order_id);
+    }
+
+    function gopay(){
+        alert("请选择支付方式");
+    }
 </script>
 
 </body>

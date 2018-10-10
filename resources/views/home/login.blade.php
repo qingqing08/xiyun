@@ -2,7 +2,7 @@
 <body class="login-bg">
 
     <div class="login layui-anim layui-anim-up">
-        <div class="message">x-admin2.0-管理登录</div>
+        <div class="message">代理登录</div>
         <div id="darkbannerwrap"></div>
 
         <form class="layui-form" >
@@ -12,6 +12,8 @@
             <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
             <hr class="hr15">
             <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+            <br><br>
+            <a href="/home/register"><input value="申请账号" style="width:100%;" type="button"></a>
             <hr class="hr20" >
         </form>
     </div>

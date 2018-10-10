@@ -115,7 +115,7 @@
         </ul>
         <ul class="self-icon">
             <li>
-                <a href="gobuy">
+                <a href="distributor-test">
                     <img src="/images/self-icon05.png"/>
                     <p>我的分销</p>
                     <span><img src="/images/right.png"/></span>

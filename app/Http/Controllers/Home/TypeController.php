@@ -14,11 +14,11 @@ class TypeController extends Controller{
         foreach ($typelist as $k=>$v){
             $v->ctime = date("Y-m-d H:i:s" , $v->ctime);
         }
-        return view('home.typelist' , ['typelist' => $typelist]);
+        return view('home.type.list' , ['typelist' => $typelist]);
     }
 
     public function typeadd(){
-        return view('home.typeadd');
+        return view('home.type.add' , ['title'=>'添加类别']);
     }
 
     public function typeadd_do(){
@@ -28,9 +28,9 @@ class TypeController extends Controller{
         $data['ctime'] = time();
         $result = DB::table('type')->insert($data);
         if ($result){
-            return redirect("/typelist");
+            return redirect("list");
         } else {
-            return redirect("/typelist");
+            return redirect("list");
         }
     }
 }

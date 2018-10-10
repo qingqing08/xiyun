@@ -44,6 +44,12 @@
               </div>
           </div>
           <div class="layui-form-item">
+            <label class="layui-form-label">是否显示</label>
+            <div class="layui-input-block">
+              <input type="checkbox" name="status" lay-skin="switch" value='1' lay-text="显示|隐藏" checked>
+            </div>
+          </div>
+          <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
               <button  class="layui-btn" lay-filter="add" lay-submit="">
@@ -57,18 +63,11 @@
             $ = layui.jquery;
           var form = layui.form
           ,layer = layui.layer;
-          //
-          // //自定义验证规则
-          // form.verify({
-          //   nikename: function(value){
-          //     if(value.length < 5){
-          //       return '昵称至少得5个字符啊';
-          //     }
-          //   }
-          // });
 
           //监听提交
           form.on('submit(add)', function(data){
+            var status = $("input[name=status]").checked;
+            // alert(status);
             var parent_id = $("select[name=parent_id]").val();
             // alert(parent_id);
             var rule_name = $("input[name=rule_name]").val();
@@ -80,6 +79,7 @@
                 dataType:"json",
                 data:{
                     'parent_id':parent_id,
+                    'status':status,
                     'rule_name':rule_name,
                     'rule_url':rule_url,
                     '_token':token,
@@ -89,7 +89,8 @@
                 success:function (data){
                     if (data.code == 1) {
                         layer.msg(data.msg, {icon: data.code, time: 1500}, function () {
-                            location.href = "/home/admin-rule";
+                            layer.close(layer.index);
+                            window.parent.location.reload();
                         });
                     } else {
                         layer.msg(data.msg, {icon: data.code});

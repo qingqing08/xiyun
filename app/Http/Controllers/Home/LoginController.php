@@ -24,4 +24,8 @@ class LoginController extends Controller{
         }
     }
 
+    public function register(){
+        return view('home.register' , ['title'=>'注册申请']);
+    }
+
 }

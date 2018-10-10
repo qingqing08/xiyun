@@ -11,7 +11,13 @@ class IndexController extends Controller{
 
 
     public function index(){
-        return view('home.index' , ['title'=>'后台首页']);
+        $list = DB::table('rule')->where(['parent_id'=>0 , 'status'=>1])->get();
+        $list = json_decode($list);
+        foreach ($list as $key => $value) {
+            $data = DB::table('rule')->where(['parent_id'=>$value->id , 'status'=>1])->get();
+            $value->child = $data;
+        }
+        return view('home.index' , ['title'=>'后台首页' , 'list'=>$list]);
     }
 
     public function welcome(){

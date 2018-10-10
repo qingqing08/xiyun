@@ -61,11 +61,11 @@
             @endforeach
             <dd>
                 <h3>商品总额</h3>
-                <i>￥{{ $price }}</i>
+                <i>￥{{ $order->sum_price }}</i>
             </dd>
             <dd>
                 @if($order->status == '待支付')
-                    <a href="alipay/go_pay?price={{ $price }}&order_id={{ $order->order_number }}"><input type="button"  value="{{ $order->status_b }}" class="order-que"/></a>
+                    <a href="alipay/go_pay?price={{ $order->sum_price }}&order_id={{ $order->order_number }}"><input type="button"  value="{{ $order->status_b }}" class="order-que"/></a>
                     <input type="button" value="取消订单" />
                 @elseif($order->status == '已发货')
                     <input type="button" value="{{ $order->status_b }}" class="order-que"/>

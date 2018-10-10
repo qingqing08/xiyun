@@ -12,11 +12,11 @@ use RSA;
 class ShopcarController extends Controller{
     //
     public function shopcar(){
-        $username = Session::get('username');
-        if (empty($username)){
+        $user_info = Session::get('userinfo');
+        if (empty($user_info)){
             return redirect('/login');
         }
-        $user_info = DB::table('user')->where('username' , $username)->first();
+//        $user_info = DB::table('user')->where('username' , $username)->first();
 //        dd($user_info);die;
         $cart_list = DB::table('cart')->where('uid' , $user_info->id)->get();
 //        dd($cart_list);die;
@@ -38,7 +38,8 @@ class ShopcarController extends Controller{
 //        echo $goods_id;die;
         $order_id = date('YmdHis',time()).rand("100000","999999");
         $goods_id = explode(',' , $goods_id);
-        $user_info = DB::table('user')->where('username' , Session::get('username'))->first();
+        $user_info = Session::get('userinfo');
+//        $user_info = DB::table('user')->where('username' , Session::get('username'))->first();
         $cart_list = DB::table('cart')->where('uid' , $user_info->id)->whereIn('goods_id' ,$goods_id)->get();
 
         $data = [
@@ -63,9 +64,30 @@ class ShopcarController extends Controller{
 //        return view('phone.buy' , ['title'=>'结算']);
     }
 
+    public function order_status(){
+        $order_id = Input::post('order_id');
+//        echo $order_id;
+        $status_info = DB::table('orderstatus')->where('order_id' , $order_id)->first();
+//        dd($status_info);
+        if (empty($status_info)){
+            return ['code'=>2 , 'msg'=>$order_id];
+        } else {
+            if ($status_info->status == 1) {
+                return ['code' => 1, 'msg' => $order_id];
+            } else if($status_info->status == 2){
+                return ['code'=>3 , 'msg'=>$order_id];
+            } else {
+                return ['code'=>2 , 'msg'=>$order_id];
+            }
+        }
+
+    }
+
     public function buy_view(){
         $order_id = Input::get('order_id');
-        $user_info = DB::table('user')->where('username',Session::get('username'))->first();
+
+        $user_info = Session::get('userinfo');
+//        $user_info = DB::table('user')->where('username',Session::get('username'))->first();
 //        dd($user_info);die;
         if (empty($user_info)){
             return redirect('/login');

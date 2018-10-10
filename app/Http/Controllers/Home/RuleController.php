@@ -12,7 +12,7 @@ class RuleController extends Controller{
     //
     public function list(){
         $list = DB::table('rule')->where('status',1)->get();
-
+//        dd($list);
         foreach ($list as $key => $value) {
             if ($value->parent_id != 0) {
                 $parent = DB::table('rule')->where('id' , $value->parent_id)->first();

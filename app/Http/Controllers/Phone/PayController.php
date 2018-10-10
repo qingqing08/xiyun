@@ -79,7 +79,15 @@ class PayController extends Controller{
                     DB::table('order')->where(['order_id'=>$params['out_trade_no'] , 'status'=>0])->update($order_data);
                     $res = DB::table('ordercontent')->where(['order_number'=>$params['out_trade_no'] , 'status'=>1])->update($data);
                     if ($res){
+                        $userinfo = DB::table('user')->where('id' , $order_info->u_id)->first();
+                        if ($userinfo->wx_openid != ''){
+                            $url = "http://wechat.pengqq.xyz/send-message?openid=".$userinfo->wx_openid."&username=".$order_info->user_name."&phone=".$order_info->user_phone."&orderid=".$order_info->order_number;
+                            $wx_info = file_get_contents($url);
+                            file_put_contents('./userinfo.txt' , $url ."\r\n" , FILE_APPEND);
+                            file_put_contents('./userinfo.txt' , $wx_info ."\r\n" , FILE_APPEND);
+                        }
                         file_put_contents('./alipay.txt','修改订单状态成功'. "\r\n" ,FILE_APPEND);
+                        echo "success";
                     } else {
                         file_put_contents('./alipay.txt','修改订单状态失败'. "\r\n" ,FILE_APPEND);
                     }

@@ -27,8 +27,11 @@ Route::post('/usersmodify_do' , 'Cms@usermodify_do');
 Route::get('/home/login' , 'Home\LoginController@login');
 Route::post('/home/login_do' , 'Home\LoginController@login_do');
 
+/* 申请账号 */
+Route::get('/home/register' , "Home\LoginController@register");
+
 /* 后台首页 */
-Route::get('/home/index' , 'home\IndexController@index');
+Route::get('/home/index' , 'Home\IndexController@index');
 Route::get('/home/welcome' , 'Home\IndexController@welcome');
 
 /* 后台权限管理 */
@@ -38,9 +41,9 @@ Route::post('/home/rule-add-do' , 'Home\RuleController@add_do');
 
 
 /* 后台类别管理 */
-Route::get('/typeadd' , 'Home\TypeController@typeadd');
-Route::post('/typeadd_do' , 'Home\TypeController@typeadd_do');
-Route::get('/typelist' , 'Home\TypeController@typelist');
+Route::get('/home/type-add' , 'Home\TypeController@typeadd');
+Route::post('/home/type-add-do' , 'Home\TypeController@typeadd_do');
+Route::get('/home/type-list' , 'Home\TypeController@typelist');
 
 /* 后台商品管理 */
 Route::get('goodsadd' , 'Home\GoodsController@goods_add');
@@ -66,6 +69,7 @@ Route::post('/create_cart' , 'Phone\IndexController@create_cart');
 //购物车
 Route::get('/shopcar' , 'Phone\ShopcarController@shopcar');
 Route::post('/buy' , 'Phone\ShopcarController@buy');
+Route::post('order_status' , 'Phone\ShopcarController@order_status');
 Route::get('/buy_view' , 'Phone\ShopcarController@buy_view');
 Route::post('up_num' , 'Phone\ShopcarController@up_num');
 
@@ -94,6 +98,17 @@ Route::get('order' , 'Phone\UserController@order');
 //登录
 Route::get('login' , 'Phone\UserController@login');
 Route::post('login_do' , 'Phone\UserController@login_do');
+Route::get('wx_login' , 'Phone\UserController@wx_login');
+Route::get('is_band' , 'Phone\UserController@is_band');
+Route::get('kip' , 'Phone\UserController@kip');
+Route::post('band_do' , 'Phone\UserController@band_do');
+Route::get('sm-login' , 'Phone\UserController@sm_login');
+Route::post('is-login' , 'Phone\UserController@is_login');
+Route::get('sm-login-do' , 'Phone\UserController@sm_login_do');
+Route::get('get-openid' , 'Phone\UserController@get_openid');
+Route::get('login-view' , 'Phone\UserController@login_view');
+Route::get('cancel' , 'Phone\UserController@cancel');
+//Route::post('');
 //重置密码
 Route::get('reset_password' , 'Phone\UserController@reset_password');
 Route::post('reset_do' , 'Phone\UserController@reset_do');
@@ -113,3 +128,27 @@ Route::get('assort' , 'Phone\AssortController@assort');
 //测试-----打卡
 Route::get('sign' , 'Phone\SignController@index');
 Route::any('sign_do' , 'Phone\SignController@sign');
+
+//微信
+Route::get('getAccessToken' , "Phone\WechatController@getAccessToken");
+Route::get('qrcode' , 'Phone\WechatController@qrcode');
+Route::get('getcode' , 'Phone\UserController@get');
+
+
+//分销
+Route::get('distributor-info' , "Phone\DistributorController@distributor");
+Route::get('distributor-test' , "Phone\DistributorController@test");
+
+
+//微相册
+Route::get('set-redis' , "Phone\AlbumController@set_redis");
+Route::get('album-list' , "Phone\AlbumController@album_list");
+Route::post('create-album' , "Phone\AlbumController@create_album");
+Route::post('up-name' , "Phone\AlbumController@up_name");
+Route::get('photo-list' , "Phone\AlbumController@album_view");
+Route::any('get-photo' , "Phone\AlbumController@get_photo");
+
+//购物
+Route::get('scan-goods' , "Phone\WxpayController@scan_goods");
+Route::get('goods-qrcode' , "Phone\WxpayController@goods_qrcode");
+Route::get('wx-buy' , 'Phone\WxpayController@wx_buy');

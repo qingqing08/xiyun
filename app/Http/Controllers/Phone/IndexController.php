@@ -25,15 +25,15 @@ class IndexController extends Controller{
     }
 
     public function create_cart(){
-        $username = Session::get('username');
-        if (empty($username)){
+        $user_info = Session::get('userinfo');
+        if (empty($user_info)){
             return ['msg'=>'请登录后操作' , 'code'=>0];
         }
         $goods_id = Input::post('goods_id');
         $goods_price = Input::post('goods_price');
 //        echo $goods_id;
 //        echo $username;
-        $user_info = DB::table('user')->where('username',$username)->first();
+//        $user_info = DB::table('user')->where('username',$username)->first();
 //        dd($user_info['id']);die;
         $data = [
             'uid'   =>  $user_info->id,
