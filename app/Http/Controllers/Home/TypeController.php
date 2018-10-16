@@ -14,7 +14,7 @@ class TypeController extends Controller{
         foreach ($typelist as $k=>$v){
             $v->ctime = date("Y-m-d H:i:s" , $v->ctime);
         }
-        return view('home.type.list' , ['typelist' => $typelist]);
+        return view('home.type.list' , ['typelist' => $typelist , 'title' => '类型列表']);
     }
 
     public function typeadd(){
