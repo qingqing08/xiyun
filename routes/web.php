@@ -29,6 +29,7 @@ Route::post('/home/login_do' , 'Home\LoginController@login_do');
 
 /* 申请账号 */
 Route::get('/home/register' , "Home\LoginController@register");
+Route::post('/home/register-do' , 'Home\LoginController@register_do');
 
 /* 后台首页 */
 Route::get('/home/index' , 'Home\IndexController@index');
@@ -152,3 +153,19 @@ Route::any('get-photo' , "Phone\AlbumController@get_photo");
 Route::get('scan-goods' , "Phone\WxpayController@scan_goods");
 Route::get('goods-qrcode' , "Phone\WxpayController@goods_qrcode");
 Route::get('wx-buy' , 'Phone\WxpayController@wx_buy');
+
+//微博登陆
+Route::get('auth' , "Api\Weibo@auth");
+Route::get('tiaoguo' , "Api\Weibo@tiaoguo");
+Route::get('weibo-band' , "Api\Weibo@weibo_band");
+
+//签名
+Route::get('test-sign' , 'Api\Sign@test');
+Route::get('validate-sign' , 'Api\Sign@validate_sign');
+
+//加密
+Route::get('aes-en' , 'Api\Encryption@aes_en');
+
+//第三方登录
+Route::get('api-login' , 'Phone\Login@api_login');
+Route::get('three-login' , 'Phone\Login@login');

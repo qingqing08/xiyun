@@ -324,8 +324,11 @@ class ComposerStaticInit1757e79967efe3b59135d0d3eb14f173
     );
 
     public static $classMap = array (
+        'Aes' => __DIR__ . '/../..' . '/app/extend/Aes.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Api\\Sign' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/Sign.php',
+        'App\\Http\\Controllers\\Api\\Weibo' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/Weibo.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',

@@ -17,15 +17,34 @@ class LoginController extends Controller{
     public function login_do(){
         $data = Input::post();
 
-        if (!empty($data)) {
-            return ['code'=>1 , 'msg'=>'接收数据成功'];
+        $userinfo = DB::table('admin')->where(['username'=>$data['username'] , 'password'=>md5($data['password'])])->first();
+        if (empty($userinfo)){
+            return ['code'=>0 , 'msg'=>'账号或密码错误'];
         } else {
-            return ['code'=>2 , 'msg'=>"数据接收失败"];
+            $userinfo = Session::get('userinfo');
+            return ['code'=>1 , 'msg'=>'登录成功'];
         }
     }
 
     public function register(){
         return view('home.register' , ['title'=>'注册申请']);
+    }
+
+    public function register_do(){
+        $data = Input::post();
+
+        unset($data['_token']);
+        $data['password'] = md5($data['password']);
+        $data['ctime'] = time();
+        $result = DB::table('admin')->insertGetId($data);
+
+        $userinfo = DB::table('admin')->where('uid' , $result)->first();
+        Session::put('userinfo' , $userinfo);
+        if ($result){
+            return ['code'=>1 , 'msg'=>'注册成功'];
+        } else {
+            return ['code'=>2 , 'msg'=>'注册失败'];
+        }
     }
 
 }

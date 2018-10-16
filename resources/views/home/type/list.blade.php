@@ -1,4 +1,6 @@
 @extends('layouts.homeheader')
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/layui/layui.js"></script>
   <body class="layui-anim layui-anim-up">
     <div class="x-nav">
       <span class="layui-breadcrumb">
@@ -13,8 +15,8 @@
     <div class="x-body">
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./member-add.html',600,400)"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+        <button class="layui-btn" onclick="x_admin_show('添加类型','type-add',600,400)"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">共有数据：{{ $count }} 条</span>
       </xblock>
       <table class="layui-table">
         <thead>
@@ -25,16 +27,18 @@
             <th>ID</th>
             <th>类别名称</th>
             <th>添加时间</th>
+            <th>是否启用</th>
             <th>操作</th></tr>
         </thead>
         <tbody>
+        @foreach($typelist as $type)
           <tr>
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <td>1</td>
-            <td>小明</td>
-            <td>男</td>
+            <td>{{ $type->id }}</td>
+            <td>{{ $type->name }}</td>
+            <td>{{ $type->ctime }}</td>
             <td class="td-status">
               <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
             <td class="td-manage">
@@ -52,17 +56,11 @@
               </a>
             </td>
           </tr>
+        @endforeach
         </tbody>
       </table>
       <div class="page">
-        <div>
-          <a class="prev" href="">&lt;&lt;</a>
-          <a class="num" href="">1</a>
-          <span class="current">2</span>
-          <a class="num" href="">3</a>
-          <a class="num" href="">489</a>
-          <a class="next" href="">&gt;&gt;</a>
-        </div>
+        {{ $typelist->links() }}
       </div>
 
     </div>

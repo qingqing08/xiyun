@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Input;
 class TypeController extends Controller{
     //
     public function typelist(){
-        $typelist = DB::table('type')->get();
+        $typelist = DB::table('type')->paginate(2);
         foreach ($typelist as $k=>$v){
             $v->ctime = date("Y-m-d H:i:s" , $v->ctime);
         }
-        return view('home.type.list' , ['typelist' => $typelist , 'title' => '类型列表']);
+        $count = DB::table('type')->count();
+//        dd($typelist);
+        return view('home.type.list' , ['count' => $count , 'typelist' => $typelist , 'title' => '类型列表']);
     }
 
     public function typeadd(){

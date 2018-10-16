@@ -20,7 +20,8 @@
         </select>
         <hr class="hr15">
         <select name="parent_id" id="parent_id">
-            <option value="3">吕萍--战略</option>
+            <option value="0">无</option>
+            <option value="1">吕萍--战略</option>
         </select>
         <hr class="hr15">
         <input value="申请" lay-submit lay-filter="login" style="width:100%;" type="submit">
@@ -38,14 +39,18 @@
             form.on('submit(login)', function(data){
                 var username = $("input[name=username]").val();
                 var password = $("input[name=password]").val();
+                var level = $("#level").val();
+                var parent_id = $("#parent_id").val();
                 var token = $("input[name=_token]").val();
                 $.ajax({
-                    url:"login_do",
+                    url:"register-do",
                     type:"post",
                     dataType:"json",
                     data:{
                         'username':username,
                         'password':password,
+                        'level':level,
+                        'parent_id':parent_id,
                         '_token':token,
                     },
                     cache:false,

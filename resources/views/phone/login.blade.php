@@ -23,6 +23,7 @@
 			<input type="submit" lay-submit lay-filter="formDemo" value="登录" />
             <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx996fa85abda5e676&redirect_uri=http://www.pengqq.xyz/wx_login?response_type=code&scope=snsapi_userinfo&state=STATEA#wechat_redirect">微信登录</a>
 		    <a href="sm-login">微信扫码登录</a>
+            <a target='_blank' href='https://api.weibo.com/oauth2/authorize?client_id=3817437085&redirect_uri=http://api.jinxiaofei.xyz/auth&response_type=code'>微博登陆</a>
         </form>
 	</div>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller{
     //
@@ -17,11 +18,58 @@ class IndexController extends Controller{
             $data = DB::table('rule')->where(['parent_id'=>$value->id , 'status'=>1])->get();
             $value->child = $data;
         }
-        return view('home.index' , ['title'=>'后台首页' , 'list'=>$list]);
+
+        $userinfo = Session::get('userinfo');
+        return view('home.index' , ['title'=>'后台首页' , 'list'=>$list , 'userinfo'=>$userinfo]);
     }
 
     public function welcome(){
-        return view('home.welcome');
+        $h = date('H');
+        if ($h > 0 && $h < 3){
+            $content = '夜深了,忙碌了一天让自己好好休息吧！';
+        } elseif ($h > 3 && $h < 5){
+            $content = '已经很晚了,不要让自己变成熊猫眼哦！';
+        } elseif ($h > 5 && $h < 7){
+            $content = '早上好！';
+        } elseif ($h > 7 && $h < 12){
+            $content = '上午好！';
+        } elseif ($h > 12 && $h < 13){
+            $content = '中午好！';
+        } elseif ($h > 13 && $h < 17){
+            $content = '下午好！';
+        } elseif ($h > 17 && $h < 19){
+            $content = '傍晚好！';
+        } else {
+            $content = '晚上好！';
+        }
+
+        $userinfo = Session::get('userinfo');
+        $level = DB::table('admin')->where('uid' , $userinfo->parent_id)->first();
+        if ($level->level == 1){
+            $level_name = '战略';
+        } elseif ($level->level == 2){
+            $level_name = '总代';
+        } elseif ($level->level == 3){
+            $level_name = '一级';
+        } elseif ($level->level == 4){
+            $level_name = '二级';
+        } else {
+            $level_name = '特约';
+        }
+
+        $num = DB::table('admin')->where('parent_id' , $userinfo->uid)->count();
+
+        $one = DB::table('admin')->where(['parent_id'=>$userinfo->uid , 'level'=>3])->count();
+        $two = DB::table('admin')->where(['parent_id'=>$userinfo->uid , 'level'=>4])->count();
+        $teyue = DB::table('admin')->where(['parent_id'=>$userinfo->uid , 'level'=>5])->count();
+
+        $count = [
+            'count' =>  $num,
+            'one'   =>  $one,
+            'two'   =>  $two,
+            'teyue' =>  $teyue,
+        ];
+        return view('home.welcome' , ['count'=>$count , 'content'=>$content , 'userinfo'=>$userinfo , 'level'=>$level->username."-".$level_name]);
     }
 
     public function statistics(){
