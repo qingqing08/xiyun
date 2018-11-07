@@ -14,5 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
         '/alipay/notify_url',
+        '/home/goods-img',
     ];
 }

@@ -12,6 +12,6 @@
     <link rel="stylesheet" href="/css/font.css">
 	<link rel="stylesheet" href="/css/xadmin.css">
     <script type="text/javascript" src="/js/xadmin.js"></script>
-    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
-		<script type="text/javascript" src="/layui/layui.js"></script>
+    {{--<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>--}}
+		{{--<script type="text/javascript" src="/layui/layui.js"></script>--}}
 </head>

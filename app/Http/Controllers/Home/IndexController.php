@@ -20,6 +20,7 @@ class IndexController extends Controller{
         }
 
         $userinfo = Session::get('userinfo');
+//        dd($userinfo);
         return view('home.index' , ['title'=>'后台首页' , 'list'=>$list , 'userinfo'=>$userinfo]);
     }
 

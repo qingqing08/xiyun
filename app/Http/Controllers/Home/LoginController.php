@@ -21,7 +21,7 @@ class LoginController extends Controller{
         if (empty($userinfo)){
             return ['code'=>0 , 'msg'=>'账号或密码错误'];
         } else {
-            $userinfo = Session::get('userinfo');
+            Session::put('userinfo' , $userinfo);
             return ['code'=>1 , 'msg'=>'登录成功'];
         }
     }

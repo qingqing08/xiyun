@@ -47,8 +47,10 @@ Route::post('/home/type-add-do' , 'Home\TypeController@typeadd_do');
 Route::get('/home/type-list' , 'Home\TypeController@typelist');
 
 /* 后台商品管理 */
-Route::get('goodsadd' , 'Home\GoodsController@goods_add');
-Route::any('goodsadd_do' , 'Home\GoodsController@goods_add_do');
+Route::get('/home/goods-list' , 'Home\GoodsController@goods_list');
+Route::get('/home/goods-add' , 'Home\GoodsController@goods_add');
+Route::post('/home/goods-add-do' , 'Home\GoodsController@goods_add_do');
+Route::post('/home/goods-img' , 'Home\GoodsController@up_img');
 
 /* banner图管理--轮播图 */
 Route::get('banneradd' , 'Home\BannerController@banner_add');
